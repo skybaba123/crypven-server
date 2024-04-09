@@ -4,7 +4,6 @@ const transactionSchema = new Schema(
   {
     priceAmount: { type: Number, required: true },
     actuallyPaid: { type: Number },
-    payoutRate: { type: Number },
     payoutCurrency: {
       name: { type: String, default: "Nigerian Naira" },
       code: { type: String, default: "NGN" },
@@ -17,16 +16,16 @@ const transactionSchema = new Schema(
       enum: ["waiting", "processing", "successful", "expired", "failed"],
     },
     paymentProof: {
-      public_id: { type: String, required: true },
-      secure_url: { type: String, required: true },
-      width: { type: Number, required: true },
-      height: { type: Number, required: true },
+      public_id: { type: String },
+      secure_url: { type: String },
+      width: { type: Number },
+      height: { type: Number },
     },
     payoutProof: {
-      public_id: { type: String, required: true },
-      secure_url: { type: String, required: true },
-      width: { type: Number, required: true },
-      height: { type: Number, required: true },
+      public_id: { type: String },
+      secure_url: { type: String },
+      width: { type: Number },
+      height: { type: Number },
     },
     coin: {
       label: { type: String, trim: true, required: true },
