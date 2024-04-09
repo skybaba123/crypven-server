@@ -8,6 +8,7 @@ const coinSchema = new Schema(
     payinRate: { type: Number, required: true },
     minAmount: { type: Number, required: true },
     info: { type: String, trim: true },
+    bgColor: { type: String, trim: true, required: true },
     icon: {
       public_id: { type: String, required: true },
       secure_url: { type: String, required: true },

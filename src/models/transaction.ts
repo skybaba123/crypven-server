@@ -14,7 +14,7 @@ const transactionSchema = new Schema(
       type: String,
       require: true,
       default: "waiting",
-      enum: ["waiting", "processing", "successful", "failed"],
+      enum: ["waiting", "processing", "successful", "expired", "failed"],
     },
     paymentProof: {
       public_id: { type: String, required: true },
@@ -28,7 +28,13 @@ const transactionSchema = new Schema(
       width: { type: Number, required: true },
       height: { type: Number, required: true },
     },
-    coinId: { type: Types.ObjectId, required: true },
+    coin: {
+      label: { type: String, trim: true, required: true },
+      value: { type: String, trim: true, required: true },
+      rate: { type: Number, required: true },
+      iconUrl: String,
+      coinId: { type: Types.ObjectId, required: true },
+    },
     ownerId: { type: Types.ObjectId, required: true },
   },
   { timestamps: true }
