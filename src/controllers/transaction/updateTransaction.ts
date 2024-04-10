@@ -21,37 +21,37 @@ const updateTransactionHandler = async (req: any, res: any) => {
     )
       return res.status(400).send({ error: "Unauthorized access" });
 
-    if (req.body.paymentProof && transaction.paymentProof) {
-      transaction.status = "processing";
-      //store payment proof in image trash
-      const newImageTrash = new ImageTrash({
-        label: "Updated payment proof from transaction",
-        location: "transaction",
-        locationId: transaction._id,
-        image: transaction.paymentProof,
-      });
-      await newImageTrash.save();
-    }
+    // if (req.body.paymentProof && transaction.paymentProof) {
+    //   transaction.status = "processing";
+    //   //store payment proof in image trash
+    //   const newImageTrash = new ImageTrash({
+    //     label: "Updated payment proof from transaction",
+    //     location: "transaction",
+    //     locationId: transaction._id,
+    //     image: transaction.paymentProof,
+    //   });
+    //   await newImageTrash.save();
+    // }
 
-    //only admins can update payout proof
-    if (req.body.payoutProof && requester.role !== "admin") {
-      const msg = "Unauthorized access: Only admin can update payout proof";
-      return res.status(400).send({ error: msg });
-    } else if (
-      req.body.payoutProof &&
-      transaction.payoutProof &&
-      requester.role === "admin"
-    ) {
-      transaction.status = "successful";
-      //store payout proof in image trash
-      const newImageTrash = new ImageTrash({
-        label: "Updated payout proof from transaction",
-        location: "transaction",
-        locationId: transaction._id,
-        image: transaction.payoutProof,
-      });
-      await newImageTrash.save();
-    }
+    // //only admins can update payout proof
+    // if (req.body.payoutProof && requester.role !== "admin") {
+    //   const msg = "Unauthorized access: Only admin can update payout proof";
+    //   return res.status(400).send({ error: msg });
+    // } else if (
+    //   req.body.payoutProof &&
+    //   transaction.payoutProof &&
+    //   requester.role === "admin"
+    // ) {
+    //   transaction.status = "successful";
+    //   //store payout proof in image trash
+    //   const newImageTrash = new ImageTrash({
+    //     label: "Updated payout proof from transaction",
+    //     location: "transaction",
+    //     locationId: transaction._id,
+    //     image: transaction.payoutProof,
+    //   });
+    //   await newImageTrash.save();
+    // }
 
     for (const key in req.body) {
       if (key !== "transactionId") {

@@ -20,6 +20,17 @@ const getTransactionHandler = async (req: any, res: any) => {
     )
       return res.status(400).send({ error: "Unauthorized access" });
 
+    const dateInMilisec =
+      new Date(`${transaction.createdAt}`).getTime() + 1000 * 60 * 30;
+
+    if (Date.now() > dateInMilisec && transaction.status === "waiting") {
+      await Transaction.findByIdAndUpdate(transaction._id, {
+        status: "expired",
+      });
+      const expiredTransaction = await Transaction.findById(transaction._id);
+      return res.status(200).send(expiredTransaction);
+    }
+
     return res.status(200).send(transaction);
   } catch (error) {
     return res.status(500).send({ error: error.message });

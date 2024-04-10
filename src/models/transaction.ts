@@ -34,6 +34,7 @@ const transactionSchema = new Schema(
       iconUrl: String,
       coinId: { type: Types.ObjectId, required: true },
     },
+    failedReason: { type: String, trim: true },
     ownerId: { type: Types.ObjectId, required: true },
   },
   { timestamps: true }
