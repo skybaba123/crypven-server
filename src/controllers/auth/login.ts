@@ -27,8 +27,14 @@ const loginController = async (req: any, res: any) => {
     const updatedUser = await user.save();
 
     const deviceInfo = req.headers["user-agent"] || "Unknown";
+    const ipAddress =
+      req.headers["x-forwarded-for"] ||
+      req.connection.remoteAddress ||
+      "Unknown";
+    const activityMessage = `You logged in from ${deviceInfo} (IP: ${ipAddress})`;
+
     await new Alert({
-      message: `New login from ${deviceInfo}`,
+      message: activityMessage,
       type: "activity",
       ownerId: updatedUser._id,
     }).save();
