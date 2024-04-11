@@ -14,7 +14,7 @@ router.get("/user", userAuth, getUser);
 
 router.get("/users", userAuth, getAllUsersHandler);
 
-router.get("/user/referrals", userAuth, getUserReferralsHandler);
+router.post("/user/referrals", userAuth, getUserReferralsHandler);
 
 router.post("/user/update", userAuth, updateUserHandler);
 

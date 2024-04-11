@@ -23,6 +23,22 @@ const userSchema = new Schema(
 
     referralUserId: Types.ObjectId,
 
+    referralBal: { type: Number, default: 0 },
+
+    referralTransaction: {
+      type: [
+        {
+          amount: { type: Number, required: true },
+          type: {
+            type: String,
+            required: true,
+            enum: ["withdrawal", "earning"],
+          },
+        },
+      ],
+      default: [],
+    },
+
     role: { type: String, enum: ["user", "admin"], default: "user" },
 
     manager: { type: String, enum: ["yes", "no"], default: "no" },
