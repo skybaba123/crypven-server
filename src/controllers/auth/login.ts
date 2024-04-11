@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "@/models/user";
-import Alert from "@/models/alert";
+import newActivity from "@/constants/newActivity";
 
 const loginController = async (req: any, res: any) => {
   try {
@@ -26,18 +26,7 @@ const loginController = async (req: any, res: any) => {
     user.sessionToken = token;
     const updatedUser = await user.save();
 
-    const deviceInfo = req.headers["user-agent"] || "Unknown";
-    const ipAddress =
-      req.headers["x-forwarded-for"] ||
-      req.connection.remoteAddress ||
-      "Unknown";
-    const activityMessage = `You logged in from ${deviceInfo} (IP: ${ipAddress})`;
-
-    await new Alert({
-      message: activityMessage,
-      type: "activity",
-      ownerId: updatedUser._id,
-    }).save();
+    await newActivity(req, updatedUser._id, "You logged in");
 
     return res.status(200).send(updatedUser);
   } catch (error) {
