@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "@/models/user";
+import Alert from "@/models/alert";
 
 const loginController = async (req: any, res: any) => {
   try {
@@ -24,6 +25,13 @@ const loginController = async (req: any, res: any) => {
     });
     user.sessionToken = token;
     const updatedUser = await user.save();
+
+    const deviceInfo = req.headers["user-agent"] || "Unknown";
+    await new Alert({
+      message: `New login from ${deviceInfo}`,
+      type: "activity",
+      ownerId: updatedUser._id,
+    }).save();
 
     return res.status(200).send(updatedUser);
   } catch (error) {
