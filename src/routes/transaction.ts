@@ -1,3 +1,4 @@
+import approveTransactionHandler from "@/controllers/transaction/approveTransaction";
 import createTransactionHandler from "@/controllers/transaction/createTransaction";
 import deleteTransactionHandler from "@/controllers/transaction/deleteTransaction";
 import getAllTransactionsHandler from "@/controllers/transaction/getAllTransactions";
@@ -23,6 +24,8 @@ router.post(
   userAuth,
   uploadPaymentProofHandler
 );
+
+router.post("/transaction/approve", userAuth, approveTransactionHandler);
 
 router.post("/transaction/update", userAuth, updateTransactionHandler);
 

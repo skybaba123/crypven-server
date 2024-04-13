@@ -15,7 +15,7 @@ const deleteTransactionHandler = async (req: any, res: any) => {
     if (requester.role !== "admin")
       return res.status(400).send({ error: "Unauthorized access:" });
 
-    if (transaction.paymentProof) {
+    if (transaction.paymentProof.secure_url) {
       //store payment proof in image trash
       const newImageTrash = new ImageTrash({
         label: "Deleted payment proof from transaction",
@@ -26,7 +26,7 @@ const deleteTransactionHandler = async (req: any, res: any) => {
       await newImageTrash.save();
     }
 
-    if (transaction.payoutProof) {
+    if (transaction.payoutProof.secure_url) {
       //store payout proof in image trash
       const newImageTrash = new ImageTrash({
         label: "Deleted payout proof from transaction",

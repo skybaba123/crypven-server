@@ -6,10 +6,10 @@ const imageTrashSchema = new Schema(
     location: { type: String, required: true },
     locationId: { type: Types.ObjectId, required: true },
     image: {
-      public_id: { type: String, required: true },
-      secure_url: { type: String, required: true },
-      width: { type: Number, required: true },
-      height: { type: Number, required: true },
+      public_id: { type: String },
+      secure_url: { type: String },
+      width: { type: Number },
+      height: { type: Number },
     },
   },
   { timestamps: true }

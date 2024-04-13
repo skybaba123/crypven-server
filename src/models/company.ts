@@ -14,6 +14,22 @@ const companySchema = new Schema(
 
     adminMessage: { type: String, trim: true, default: "N/A" },
 
+    referral: {
+      minPayout: { type: Number, default: 100 }, //the minimum amount the user has to earn to qualify for the payout
+      payoutDuration: {
+        type: String,
+        enum: ["monthly", "weekly"],
+        default: "monthly",
+      }, // duration in which you pay users that are qulified for payout
+      earningAmount: { type: Number, default: 100 }, // the amount user earn each time thier referral trades
+      minTradeAmount: { type: Number, default: 100 }, // the minimum amount about thier referral has to trade before the user receive the earning amount
+      status: {
+        type: String,
+        enum: ["on", "off", "coming-soon"],
+        default: "on",
+      }, //the referral status
+    },
+
     address: {
       type: String,
       trim: true,

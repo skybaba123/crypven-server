@@ -6,7 +6,6 @@ const updateCompanyHandler = async (req: any, res: any) => {
     const companies = await Company.find({});
     if (companies.length <= 0)
       return res.status(404).send({ error: "No company data found" });
-
     const company = companies[0];
 
     if (req.user.role !== "admin")
