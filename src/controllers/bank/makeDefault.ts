@@ -20,12 +20,23 @@ const makeDefaultHandler = async (req: any, res: any) => {
     )
       return res.status(401).send({ error: "Unauthorized access" });
 
-    const isPasswordMatch = bcrypt.compareSync(
-      req.body.password,
-      user.hashedPassword
-    );
-    if (!isPasswordMatch)
-      return res.status(401).send({ error: "Password Mismatch" });
+    if (requester.role === "admin") {
+      const isPasswordMatch = bcrypt.compareSync(
+        req.body.password,
+        requester.hashedPassword
+      );
+      if (!isPasswordMatch)
+        return res.status(401).send({ error: "Password Mismatch" });
+    }
+
+    if (requester.role === "user") {
+      const isPasswordMatch = bcrypt.compareSync(
+        req.body.password,
+        user.hashedPassword
+      );
+      if (!isPasswordMatch)
+        return res.status(401).send({ error: "Password Mismatch" });
+    }
 
     if (bank.defaultAccount === "yes") {
       return res

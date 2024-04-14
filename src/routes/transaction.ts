@@ -4,6 +4,7 @@ import deleteTransactionHandler from "@/controllers/transaction/deleteTransactio
 import getAllTransactionsHandler from "@/controllers/transaction/getAllTransactions";
 import getTransactionHandler from "@/controllers/transaction/getTransaction";
 import getUserTransactionsHandler from "@/controllers/transaction/getUserTransactions";
+import rejectTransactionHandler from "@/controllers/transaction/rejectTransaction";
 import updateTransactionHandler from "@/controllers/transaction/updateTransaction";
 import uploadPaymentProofHandler from "@/controllers/transaction/uploadPaymentProof";
 import userAuth from "@/middlewares/userAuth";
@@ -26,6 +27,8 @@ router.post(
 );
 
 router.post("/transaction/approve", userAuth, approveTransactionHandler);
+
+router.post("/transaction/reject", userAuth, rejectTransactionHandler);
 
 router.post("/transaction/update", userAuth, updateTransactionHandler);
 

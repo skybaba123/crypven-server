@@ -34,6 +34,7 @@ const userSchema = new Schema(
             required: true,
             enum: ["withdrawal", "earning"],
           },
+          createdAt: { type: Date, default: new Date() },
         },
       ],
       default: [],

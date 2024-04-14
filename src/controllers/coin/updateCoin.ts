@@ -13,7 +13,7 @@ const updateCoinHandler = async (req: any, res: any) => {
     if (requester.role !== "admin")
       return res.status(401).send({ error: "Unauthorized access" });
 
-    if (req.body.icon && coin.icon) {
+    if (req.body.icon && coin.icon.secure_url) {
       //store icon in image trash
       const newImageTrash = new ImageTrash({
         label: "Updated from coin",
