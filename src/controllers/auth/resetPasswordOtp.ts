@@ -31,7 +31,18 @@ const resetPasswordOtpHandler = async (req: any, res: any) => {
       })
     );
 
-    await sendEmail(user.email, "Reset Password", emailText, htmlData, company);
+    const emailResponse = await sendEmail(
+      user.email,
+      "Reset Password",
+      emailText,
+      htmlData,
+      company
+    );
+
+    if (emailResponse.status === "not-sent") {
+      return res.status(400).send({ error: emailResponse.statusMessage });
+    }
+
     return res.status(200).send();
   } catch (error) {
     return res.status(500).send({ error: error.meessge });

@@ -5,7 +5,7 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/image-trashs", userAuth, getAllImageTrashHandler);
+router.get("/image-trashes", userAuth, getAllImageTrashHandler);
 
 router.post("/image-trash/delete", userAuth, deleteImageTrashHandler);
 

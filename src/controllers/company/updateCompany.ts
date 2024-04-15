@@ -11,7 +11,7 @@ const updateCompanyHandler = async (req: any, res: any) => {
     if (req.user.role !== "admin")
       return res.status(400).send({ error: "Unauthorized Access" });
 
-    if (req.body.icon && company.icon) {
+    if (req.body.icon && company.icon.secure_url) {
       //store icon in image trash
       const newImageTrash = new ImageTrash({
         label: "Updated icon from company",
@@ -22,7 +22,7 @@ const updateCompanyHandler = async (req: any, res: any) => {
       await newImageTrash.save();
     }
 
-    if (req.body.logo && company.logo) {
+    if (req.body.logo && company.logo.secure_url) {
       //store logo in image trash
       const newImageTrash = new ImageTrash({
         label: "Updated logo from company",
@@ -37,9 +37,9 @@ const updateCompanyHandler = async (req: any, res: any) => {
       (company as any)[key] = req.body[key];
     }
 
-    await company.save();
+    const savedComapany = await company.save();
 
-    return res.status(200).send({ msg: "Updated" });
+    return res.status(200).send(savedComapany);
   } catch (error) {
     return res.status(500).send({ error: error.message });
   }

@@ -17,6 +17,7 @@ import transactionRoutes from "@/routes/transaction";
 import coinRoutes from "@/routes/coin";
 import bankRoutes from "@/routes/bank";
 import alertRoutes from "@/routes/alert";
+import imageTrashRoutes from "@/routes/imageTrash";
 
 const app = express();
 const port = process.env.PORT || 8080;
@@ -39,6 +40,7 @@ app.use(transactionRoutes);
 app.use(coinRoutes);
 app.use(bankRoutes);
 app.use(alertRoutes);
+app.use(imageTrashRoutes);
 
 // cron.schedule(
 //   "0 */6 * * *",
