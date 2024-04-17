@@ -38,7 +38,7 @@ export const PasswordUpdated = (props: TwitchResetPasswordEmailProps) => {
           <Section style={logo}>
             <Img
               style={{ margin: "0 auto" }}
-              src={company.logoUrl}
+              src={company?.logo?.secure_url}
               width="auto"
               height="60"
               alt={company.name}
@@ -60,7 +60,10 @@ export const PasswordUpdated = (props: TwitchResetPasswordEmailProps) => {
             </Text>
             <Text style={paragraph}>
               However if you did NOT perform this password change, please
-              <Link href={`${company.baseUrl}/forgot-password`} style={link}>
+              <Link
+                href={`${company.baseUrl}/auth/forgot-password`}
+                style={link}
+              >
                 {" "}
                 reset your account password
               </Link>{" "}

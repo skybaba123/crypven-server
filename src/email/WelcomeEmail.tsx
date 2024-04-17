@@ -37,7 +37,7 @@ export const WelcomeEmail = ({
           <Section style={logo}>
             <Img
               style={{ margin: "0 auto" }}
-              src={company?.logoUrl}
+              src={company?.logo?.secure_url}
               width="auto"
               height="60"
               alt={company?.name}

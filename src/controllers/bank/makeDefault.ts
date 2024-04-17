@@ -1,3 +1,4 @@
+import newActivity from "@/constants/newActivity";
 import Bank from "@/models/bank";
 import User from "@/models/user";
 import bcrypt from "bcrypt";
@@ -46,6 +47,7 @@ const makeDefaultHandler = async (req: any, res: any) => {
 
     await Bank.updateMany({ ownerId: user._id }, { defaultAccount: "no" });
     await Bank.findByIdAndUpdate(bank._id, { defaultAccount: "yes" });
+    await newActivity(req, user._id, "You changed your default bank account");
     return res.status(200).send();
   } catch (error) {
     return res.status(500).send({ error: error.messge });

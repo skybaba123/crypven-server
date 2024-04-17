@@ -5,6 +5,7 @@ import bcrypt from "bcrypt";
 import formatDate from "@/constants/formatDate";
 import { render } from "@react-email/render";
 import PasswordUpdated from "@/email/PasswordUpdated";
+import newActivity from "@/constants/newActivity";
 
 const newPasswordHandler = async (req: any, res: any) => {
   try {
@@ -31,6 +32,8 @@ const newPasswordHandler = async (req: any, res: any) => {
     user.verificationCode = undefined;
     user.verificationCodeExpiry = undefined;
     await user.save();
+
+    await newActivity(req, user._id, "You updated your password");
 
     const emailText = `You updated the password for your ${
       company.name

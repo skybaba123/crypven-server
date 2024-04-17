@@ -1,3 +1,4 @@
+import newActivity from "@/constants/newActivity";
 import User from "@/models/user";
 import bcrypt from "bcrypt";
 
@@ -18,6 +19,8 @@ const changePasswordHandler = async (req: any, res: any) => {
 
     user.hashedPassword = newhashedPassword;
     const updatedUser = await user.save();
+
+    await newActivity(req, updatedUser._id, "You changed your password");
 
     return res.status(200).send(updatedUser);
   } catch (error) {

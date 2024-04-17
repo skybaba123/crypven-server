@@ -1,4 +1,5 @@
 import changePasswordHandler from "@/controllers/user/changePassword";
+import confirmReferralPayment from "@/controllers/user/confirmReferralPayment";
 import deleteUserHandler from "@/controllers/user/deleteUser";
 import getAllUsersHandler from "@/controllers/user/getAllUsers";
 import getUser from "@/controllers/user/getUser";
@@ -15,6 +16,8 @@ router.get("/user", userAuth, getUser);
 router.get("/users", userAuth, getAllUsersHandler);
 
 router.post("/user/referrals", userAuth, getUserReferralsHandler);
+
+router.post("/user/confirm-ref-payment", userAuth, confirmReferralPayment);
 
 router.post("/user/update", userAuth, updateUserHandler);
 

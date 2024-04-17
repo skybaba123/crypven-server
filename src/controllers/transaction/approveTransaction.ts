@@ -1,8 +1,12 @@
+import formatDate from "@/constants/formatDate";
+import sendEmail from "@/constants/sendEmail";
+import CustomEmail from "@/email/CustomEmail";
 import Alert from "@/models/alert";
 import Coin from "@/models/coin";
 import Company from "@/models/company";
 import Transaction from "@/models/transaction";
 import User from "@/models/user";
+import { render } from "@react-email/render";
 
 const approveTransactionHandler = async (req: any, res: any) => {
   try {
@@ -67,6 +71,21 @@ const approveTransactionHandler = async (req: any, res: any) => {
         },
       });
     }
+
+    const mesageData = `We are pleased to inform you that your transaction has been approved successfully. The payment has been sent to your default bank account. |View Transaction: 
+    ${company.baseUrl}/user/transactions/${
+      updatedTransaction._id
+    } |Date: ${formatDate(new Date())}`;
+
+    const emailHtml = render(CustomEmail({ company, message: mesageData }));
+
+    await sendEmail(
+      user.email,
+      `Transaction Approved`,
+      mesageData,
+      emailHtml,
+      company
+    );
 
     return res.status(200).send();
   } catch (error) {
