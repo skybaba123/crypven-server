@@ -5,16 +5,23 @@ import User from "@/models/user";
 
 const createTransactionHandler = async (req: any, res: any) => {
   try {
+    const companies = await Company.find({});
+    const company = companies[0];
+    if (!company)
+      return res.status(404).send({ error: "Company info not found" });
+
     const user = await User.findById(req.user._id);
     if (!user) return res.status(404).send({ error: "User not found" });
 
     const coin = await Coin.findById(req.body.coinId);
     if (!coin) return res.status(404).send({ error: "Coin not found" });
 
-    const companies = await Company.find({});
-    const company = companies[0];
-    if (!company)
-      return res.status(404).send({ error: "Company info not found" });
+    if (Number(req.body.priceAmount) < coin.minAmount)
+      return res
+        .status(404)
+        .send({
+          error: `Minimum amount to sell ${coin.label} is $${coin.minAmount}`,
+        });
 
     const newTransaction = new Transaction({
       priceAmount: req.body.priceAmount,
